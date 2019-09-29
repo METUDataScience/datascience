@@ -302,7 +302,7 @@ $(document).ready(function () {
       <a href="azure_notebooks.html">Azure Notebooks</a>
     </li>
     <li>
-      <a href="intro_to_r.html">Introduction to R</a>
+      <a href="intro_to_R.html">Introduction to R</a>
     </li>
     <li>
       <a href="amelia.html">Missing Data Imputation</a>
@@ -491,25 +491,25 @@ for (i in 1:ncol(f_rv)){
   f_rv[,i]&lt;-miss
 }
 summary(f_rv)</code></pre>
-<pre><code>##       year        country              tariff           polity     
-##  Min.   :1981   Length:171         Min.   :  7.10   Min.   :-8.00  
-##  1st Qu.:1985   Class :character   1st Qu.: 14.60   1st Qu.:-2.00  
-##  Median :1990   Mode  :character   Median : 24.20   Median : 5.00  
-##  Mean   :1990                      Mean   : 29.62   Mean   : 2.93  
-##  3rd Qu.:1995                      3rd Qu.: 37.40   3rd Qu.: 8.00  
-##  Max.   :1999                      Max.   :100.00   Max.   : 9.00  
+<pre><code>##       year        country              tariff           polity      
+##  Min.   :1981   Length:171         Min.   :  7.10   Min.   :-8.000  
+##  1st Qu.:1985   Class :character   1st Qu.: 14.30   1st Qu.:-2.000  
+##  Median :1990   Mode  :character   Median : 24.30   Median : 5.000  
+##  Mean   :1990                      Mean   : 31.16   Mean   : 2.918  
+##  3rd Qu.:1995                      3rd Qu.: 39.80   3rd Qu.: 8.000  
+##  Max.   :1999                      Max.   :100.00   Max.   : 9.000  
 ##       pop                gdp.pc           intresmi          signed     
 ##  Min.   : 14105080   Min.   :  149.5   Min.   :0.9036   Min.   :0.000  
-##  1st Qu.: 19676715   1st Qu.:  420.1   1st Qu.:2.2137   1st Qu.:0.000  
-##  Median : 52799040   Median :  814.3   Median :3.1659   Median :0.000  
-##  Mean   :149904501   Mean   : 1867.3   Mean   :3.3738   Mean   :0.152  
-##  3rd Qu.:120888400   3rd Qu.: 2462.9   3rd Qu.:4.4237   3rd Qu.:0.000  
+##  1st Qu.: 19676715   1st Qu.:  420.1   1st Qu.:2.2272   1st Qu.:0.000  
+##  Median : 52799040   Median :  814.3   Median :3.2113   Median :0.000  
+##  Mean   :149904501   Mean   : 1867.3   Mean   :3.4099   Mean   :0.152  
+##  3rd Qu.:120888400   3rd Qu.: 2462.9   3rd Qu.:4.4797   3rd Qu.:0.000  
 ##  Max.   :997515200   Max.   :12086.2   Max.   :7.9346   Max.   :1.000  
 ##      fiveop          usheg       
 ##  Min.   :12.30   Min.   :0.2558  
 ##  1st Qu.:12.50   1st Qu.:0.2623  
 ##  Median :12.60   Median :0.2756  
-##  Mean   :12.75   Mean   :0.2764  
+##  Mean   :12.74   Mean   :0.2764  
 ##  3rd Qu.:13.20   3rd Qu.:0.2887  
 ##  Max.   :13.20   Max.   :0.3083</code></pre>
 </div>
@@ -523,15 +523,17 @@ a.out &lt;- amelia(freetrade, m = 5, ts = &quot;year&quot;, cs = &quot;country&q
                 noms = &quot;signed&quot;, ords = &quot;polity&quot;)</code></pre>
 <pre><code>## -- Imputation 1 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+##   1  2  3  4  5  6  7  8  9 10 11 12 13
 ## 
 ## -- Imputation 2 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18
+##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+## 
 ## 
 ## -- Imputation 3 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+##  21 22 23
 ## 
 ## -- Imputation 4 --
 ## 
@@ -539,7 +541,7 @@ a.out &lt;- amelia(freetrade, m = 5, ts = &quot;year&quot;, cs = &quot;country&q
 ## 
 ## -- Imputation 5 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16</code></pre>
+##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18</code></pre>
 <p>We have performed 5 imputations (m = 5) using <code>Amelia</code>. <code>ts</code>, stands for “time series” and it represents your time stamp variable while <code>cs</code> stands for “cross section” and it represents the cross sectional variable. Determining <code>ts</code> and <code>cs</code> variables tells amelia to omit those variables from imputation. <code>noms</code> expression stands for nominal variables while <code>ords</code> expression lets you state ordinal variables.</p>
 <pre class="r"><code>summary(a.out)</code></pre>
 <pre><code>## 
@@ -549,11 +551,11 @@ a.out &lt;- amelia(freetrade, m = 5, ts = &quot;year&quot;, cs = &quot;country&q
 ## 
 ## Chain Lengths:
 ## --------------
-## Imputation 1:  15
-## Imputation 2:  18
-## Imputation 3:  15
+## Imputation 1:  13
+## Imputation 2:  20
+## Imputation 3:  23
 ## Imputation 4:  15
-## Imputation 5:  16
+## Imputation 5:  18
 ## 
 ## Rows after Listwise Deletion:  96 
 ## Rows after Imputation:  171 
@@ -578,25 +580,24 @@ a.out &lt;- amelia(freetrade, m = 5, ts = &quot;year&quot;, cs = &quot;country&q
                  noms = &quot;signed&quot;, ords = &quot;polity&quot;)</code></pre>
 <pre><code>## -- Imputation 1 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11 12 13
+##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+## 
 ## 
 ## -- Imputation 2 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
-##  21
+##   1  2  3  4  5  6  7  8  9 10 11
 ## 
 ## -- Imputation 3 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
-##  21
+##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18
 ## 
 ## -- Imputation 4 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11 12 13 14
+##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18
 ## 
 ## -- Imputation 5 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10</code></pre>
+##   1  2  3  4  5  6  7  8  9 10 11 12 13</code></pre>
 <pre class="r"><code>summary(a.out2)</code></pre>
 <pre><code>## 
 ## Amelia output with 5 imputed datasets.
@@ -605,11 +606,11 @@ a.out &lt;- amelia(freetrade, m = 5, ts = &quot;year&quot;, cs = &quot;country&q
 ## 
 ## Chain Lengths:
 ## --------------
-## Imputation 1:  13
-## Imputation 2:  21
-## Imputation 3:  21
-## Imputation 4:  14
-## Imputation 5:  10
+## Imputation 1:  20
+## Imputation 2:  11
+## Imputation 3:  18
+## Imputation 4:  18
+## Imputation 5:  13
 ## 
 ## Rows after Listwise Deletion:  96 
 ## Rows after Imputation:  171 
@@ -645,29 +646,29 @@ a.out3 &lt;- amelia(freetrade, m = 5, idvars = c(&quot;year&quot;, &quot;country
                  parallel = &quot;multicore&quot;)</code></pre>
 <pre><code>## -- Imputation 1 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11 12 13
+##   1  2  3  4  5  6  7  8  9 10 11 12
 ## 
 ## -- Imputation 2 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+##   1  2  3  4  5  6  7  8  9 10 11 12 13
 ## 
 ## -- Imputation 3 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10
+##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
 ## 
 ## -- Imputation 4 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11
+##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19
 ## 
 ## -- Imputation 5 --
 ## 
-##   1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19</code></pre>
+##   1  2  3  4  5  6  7  8  9 10</code></pre>
 <pre class="r"><code>summary(freetrade$tariff)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##    7.10   16.30   25.20   31.65   40.80  100.00      58</code></pre>
 <pre class="r"><code>summary(tariff)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##  -4.799  17.708  27.600  32.490  41.250 100.000</code></pre>
+##    7.10   20.00   28.63   33.13   41.31  100.00</code></pre>
 </div>
 <div id="single-imputation-missing-data-imputation-using-amelia" class="section level2">
 <h2>Single Imputation: Missing Data Imputation using Amelia</h2>
@@ -710,7 +711,7 @@ a.out.single &lt;- amelia(freetrade, m = 1, ts = &quot;year&quot;, cs = &quot;co
 <pre class="r"><code>tariff &lt;- a.out.single$imputations$imp1$tariff
 summary(tariff)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##  -8.565  16.624  27.300  33.371  47.800 100.000</code></pre>
+##  -21.44   16.15   27.30   31.46   42.64  100.00</code></pre>
 <pre class="r"><code>summary(freetrade$tariff)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##    7.10   16.30   25.20   31.65   40.80  100.00      58</code></pre>
@@ -754,10 +755,10 @@ a.out.bds &lt;- amelia(freetrade, m = 1, ts = &quot;year&quot;, cs = &quot;count
 <pre class="r"><code>tariff2 &lt;- a.out$imputations$imp1$tariff
 summary(tariff)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##  -8.565  16.624  27.300  33.371  47.800 100.000</code></pre>
+##  -21.44   16.15   27.30   31.46   42.64  100.00</code></pre>
 <pre class="r"><code>summary(tariff)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##  -8.565  16.624  27.300  33.371  47.800 100.000</code></pre>
+##  -21.44   16.15   27.30   31.46   42.64  100.00</code></pre>
 </div>
 <div id="diagnostics" class="section level2">
 <h2>Diagnostics</h2>
