@@ -1,0 +1,40 @@
+---
+title: "Introduction to Data Science"
+---
+
+Welcome to Introduction to Data Science page. This lecture will be given by [Assoc.Prof.Dr.Tugba Taskaya Temizel](https://blog.metu.edu.tr/ttemizel/). The assistant who will be doing the applied portion of the course is [Mehmet Ali Akyol](https://mehmetaliakyol.com). 
+
+This page will contain the lab codes for the class as RMarkdown documents. You can go to the [Github repository](https://github.com/makyol/datascience) for the full Rmarkdown files to use in your local environment.The entirety of materials will be available through ODTU-Class. This blog only aims to provide a collection of rendered RMarkdown files.
+
+The syllabus for this year’s lecture is as follows:
+
+
+* Week 1:	Introduction to Data Science: Basic Concepts
+* Week 2:	Platforms & Workbenches
+* Week 3:	Probability & Statistics Review
+* Week 4:	Understanding Data: Exploratory Data Analysis
+* Week 5:	Understanding Data: Descriptive Analytics & Visualization
+* Week 6:	Data Acquisition and Preprocessing: Part I
+* Week 7:	Data Acquisition and Preprocessing: Part II
+* Week 8:	Practical Machine Learning: Part I
+* Week 9:	Practical Machine Learning (ML): Part II
+* Week 10: Model Evaluation and Performance Metrics
+* Week 11: Data Storytelling
+* Week 12: Current Topics in Data Science: Part I – Big Data, ML Advance Topics & Data Mining
+* Week 13: Current Topics in Data Science: Part II – Prescriptive Analytics & Decision Support Systems
+* Week 14: Data Driven Organizations, Ethics and Legal Issues in Data Science
+
+
+The contents for the applied portion are as follows:
+
+* R/RStudio Installation
+* Azure Notebooks
+* Descriptive statistics and visualization
+* Missing data handling
+* Dimensionality reduction and discretization
+* Association mining
+* Regression and time series
+* Classification and model evaluation
+
+
+
