@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Dimensionality Reduction and Discretization</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Introduction to Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="installation.html">R/RStudio Installation</a>
+    </li>
+    <li>
+      <a href="azure_notebooks.html">Azure Notebooks</a>
+    </li>
+    <li>
+      <a href="introduction_to_r.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="amelia.html">Missing Data Imputation</a>
+    </li>
+    <li>
+      <a href="associationMining.html">Association Mining</a>
+    </li>
+    <li>
+      <a href="classification.html">Classification</a>
+    </li>
+    <li>
+      <a href="regression.html">Regression Analysis</a>
+    </li>
+    <li>
+      <a href="timeSeries.html">Time Series Analysis</a>
+    </li>
+    <li>
+      <a href="visualization.html">Visualization</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://mehmetaliakyol.com">
+    <span class="fa fa-question fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Dimensionality Reduction and Discretization</h1>
+
+</div>
+
+
+<p><strong>Objectives</strong>:</p>
+<p>The objective of this document is to give a brief introduction to dimensionality reduction and discretization. At the end of this tutorial you will have learned</p>
+<ul>
+<li>Dimensionality reduction
+<ul>
+<li>Feature subset selection techniques</li>
+<li>Feature reduction techniques</li>
+</ul></li>
+<li>Discretization</li>
+</ul>
+<div id="dimensionality-reduction" class="section level2">
+<h2>Dimensionality Reduction</h2>
+<p>Dimensionality reduction is performed in two different ways. The first one is feature subset selection and the second one is feature reduction or extraction. This tutorial will briefly cover both of these topics.</p>
+<p>Let’s load our main data to use:</p>
+<pre class="r"><code>data  &lt;-  read.csv(url(&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-white.csv&quot;),
+                   header  =  T,  sep=&quot;;&quot;)</code></pre>
+<div id="feature-subset-selection" class="section level3">
+<h3>Feature Subset Selection</h3>
+<p>Feature subset selection aims to select an optimal subset of existing features for modelling purposes. There are two ways to perform feature subset selection: by using wrappers or by using filters. This tutorial will briefly cover both of these topics.</p>
+<div id="wrappers" class="section level4">
+<h4>Wrappers</h4>
+<p>Wrappers are methods that evaluate predictor (feature) performance by adding/removing them into models and measuring the model performance.</p>
+<p>For wrapper methods, we will use the <code>caret</code> package.</p>
+<pre class="r"><code># if  (&quot;caret&quot;  %in%  rownames(installed.packages())  ==  FALSE){
+#   install.packages(&quot;caret&quot;)
+# }
+require(caret)</code></pre>
+<div id="recursive-feature-elimination" class="section level5">
+<h5>Recursive Feature Elimination</h5>
+<p>When using recursive feature elimination, initially all variables are included in the model. Later, by removing variables, model performance is recomputed and optimal set of features is determined.</p>
+<p>In <code>caret</code> package, recursive feature elimination can be utilized with several models such as linear regression (<code>lmFuncs</code>), random forests (<code>rfFuncs</code>), naive Bayes (<code>nbFuncs</code>) and bagged trees (<code>treebagFuncs</code>). You can also use other functions that can be used with <code>caret</code>’s train function. For further information, check <code>caret</code>’s package documentation.</p>
+<pre class="r"><code>#subset the data
+data.train.index &lt;- createDataPartition(data[,12], p=.8, list = F, times = 1) 
+data.train &lt;- data[data.train.index,] 
+#Set the control variables for feature selection 
+#We are using linear regression model (lmFuncs) and cross-validation (cv) method to verify with 10 cross-validations 
+control.rfe &lt;- rfeControl(functions=lmFuncs, method=&quot;cv&quot;, number=10) 
+#x defines predictors, while y defines the output 
+results.rfe &lt;- rfe(x = data.train[,-12], y = data.train[,12], sizes = c(1:11), 
+                   rfeControl = control.rfe) 
+print(results.rfe) #Print the results</code></pre>
+<pre><code>## 
+## Recursive feature selection
+## 
+## Outer resampling method: Cross-Validated (10 fold) 
+## 
+## Resampling performance over subset size:
+## 
+##  Variables   RMSE Rsquared    MAE  RMSESD RsquaredSD   MAESD Selected
+##          1 0.8298   0.1094 0.6472 0.03311    0.03317 0.02050         
+##          2 0.8119   0.1472 0.6333 0.03371    0.03407 0.02252         
+##          3 0.8115   0.1483 0.6329 0.03359    0.03341 0.02219         
+##          4 0.8088   0.1539 0.6309 0.03327    0.03227 0.02191         
+##          5 0.7986   0.1750 0.6239 0.03853    0.04748 0.02557         
+##          6 0.7603   0.2523 0.5932 0.02890    0.02480 0.01603         
+##          7 0.7451   0.2815 0.5845 0.02778    0.02488 0.01632         
+##          8 0.7446   0.2827 0.5839 0.02780    0.02520 0.01650         
+##          9 0.7440   0.2838 0.5835 0.02857    0.02688 0.01708         
+##         10 0.7435   0.2850 0.5815 0.02649    0.02597 0.01634        *
+##         11 0.7436   0.2849 0.5816 0.02646    0.02593 0.01642         
+## 
+## The top 5 variables (out of 10):
+##    density, volatile.acidity, pH, sulphates, chlorides</code></pre>
+<pre class="r"><code>predictors(results.rfe) #Print the names of selected variables</code></pre>
+<pre><code>##  [1] &quot;density&quot;             &quot;volatile.acidity&quot;    &quot;pH&quot;                 
+##  [4] &quot;sulphates&quot;           &quot;chlorides&quot;           &quot;alcohol&quot;            
+##  [7] &quot;residual.sugar&quot;      &quot;fixed.acidity&quot;       &quot;citric.acid&quot;        
+## [10] &quot;free.sulfur.dioxide&quot;</code></pre>
+<pre class="r"><code>trellis.par.set(caretTheme())#Set the theme for the RMSE plor
+
+plot(results.rfe, type = c(&quot;g&quot;,&quot;o&quot;))#Plot RMSE</code></pre>
+<p><img src="discretization_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>In the table, RMSE refers to “root mean squared error”. In general, we want this to be as low as possible (while also paying attention to possible over fitting problems).</p>
+</div>
+</div>
+</div>
+<div id="feature-reduction-feature-extraction" class="section level3">
+<h3>Feature Reduction (Feature Extraction)</h3>
+<p>Feature reduction or feature extraction techniques aim to generate new, more informative features using the existing set of features. They aim to incorporate the information provided by existing features into a lower number of newly generated features.</p>
+<div id="linear" class="section level4">
+<h4>Linear</h4>
+<p>Linear feature extraction techniques aim to generate new features by using a linear combination of existing features.</p>
+<div id="principle-component-analysis" class="section level5">
+<h5>Principle Component Analysis</h5>
+<p>Principle component analysis (PCA) projects the entire n-feature set into a k linearly independent features (k&lt;=n). Instead of using the original variables, you can use the computed principle components for modelling.</p>
+<pre class="r"><code>fit.pca &lt;- prcomp(data.train[,-12])
+summary(fit.pca)</code></pre>
+<pre><code>## Importance of components:
+##                            PC1      PC2     PC3     PC4     PC5     PC6
+## Standard deviation     43.5185 12.89449 4.56672 1.02789 0.83061 0.13583
+## Proportion of Variance  0.9093  0.07983 0.01001 0.00051 0.00033 0.00001
+## Cumulative Proportion   0.9093  0.98912 0.99914 0.99964 0.99997 0.99998
+##                            PC7     PC8     PC9    PC10      PC11
+## Standard deviation     0.11941 0.10694 0.09175 0.01977 0.0004702
+## Proportion of Variance 0.00001 0.00001 0.00000 0.00000 0.0000000
+## Cumulative Proportion  0.99999 1.00000 1.00000 1.00000 1.0000000</code></pre>
+<p>Based on the PCA summary, we can see that the first two principle components account for 98% of the variance in the data, so we can use these components, instead of the whole dataset.</p>
+<pre class="r"><code>new.data.pca &lt;- fit.pca$x[,1:2]
+summary(new.data.pca)</code></pre>
+<pre><code>##       PC1                PC2           
+##  Min.   :-357.112   Min.   :-45.26017  
+##  1st Qu.: -29.523   1st Qu.: -7.92953  
+##  Median :   4.533   Median : -0.04172  
+##  Mean   :   0.000   Mean   :  0.00000  
+##  3rd Qu.:  31.137   3rd Qu.:  7.49399  
+##  Max.   : 131.903   Max.   :165.84849</code></pre>
+</div>
+<div id="singular-value-decomposition" class="section level5">
+<h5>Singular Value Decomposition</h5>
+<p>Singular value decomposition (SVD) is similar to PCA. It also uses projection to lower dimensions. The SVD is a numerical method while PCA is an analysis approach. In R, <code>prcomp</code> functions uses svd (numerical method) to calculate principle components which is more stable than using the euclidean distance. The output of <code>prcomp</code> function is better in terms of interpretability than the output of <code>svd</code> function. Also, <code>summary</code> function does not work properly for the output of <code>svd</code>.</p>
+<pre class="r"><code>fit.svd &lt;- svd(data.train[,-12])</code></pre>
+<p>To see the amount of variance each component accounts for, use the following code:</p>
+<pre class="r"><code>cumsum(fit.svd$d)/sum(fit.svd$d)</code></pre>
+<pre><code>##  [1] 0.8652279 0.9398522 0.9668745 0.9910389 0.9962666 0.9978527 0.9985442
+##  [8] 0.9991717 0.9997077 0.9998881 1.0000000</code></pre>
+<p>According to the results, first two components account for 94% of variance and we can use those two.</p>
+<pre class="r"><code>new.data.svd &lt;- fit.svd$u[,1:2]
+summary(new.data.svd)</code></pre>
+<pre><code>##        V1                  V2            
+##  Min.   :-0.053074   Min.   :-0.0551928  
+##  1st Qu.:-0.018439   1st Qu.:-0.0100693  
+##  Median :-0.014808   Median :-0.0004085  
+##  Mean   :-0.015290   Mean   :-0.0002006  
+##  3rd Qu.:-0.011974   3rd Qu.: 0.0090397  
+##  Max.   :-0.001267   Max.   : 0.2108983</code></pre>
+<p>As mentioned previously, using <code>prcomp</code> is more intuitive and easier than using <code>svd</code>.</p>
+</div>
+<div id="factor-analysis" class="section level5">
+<h5>Factor Analysis</h5>
+<p>Factor analysis is a general term of methods that use linear projection (such as PCA). Instead of using a specific method, we can use general factor analysis to reduce the dimensionality.</p>
+<p>First, we need to determine the number of factors we want to obtain.</p>
+<pre class="r"><code># if  (&quot;nFactors&quot;  %in%  rownames(installed.packages())  ==  FALSE){
+#   install.packages(&quot;nFactors&quot;)
+# }
+library(nFactors)
+ev &lt;- eigen(cor(data.train[,-12])) # get eigenvalues
+ap &lt;- parallel(subject=nrow(data.train[,-12]),var=ncol(data.train[,-12]),
+               rep=100,cent=.05)
+nS &lt;- nScree(x=ev$values, aparallel=ap$eigen$qevpea)
+plotnScree(nS)</code></pre>
+<p><img src="discretization_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>At the scree plot that we have obtained, optimal coordinates is determined as 3. This means, the optimal number of factors that explain the variability in the data is three.</p>
+<p>So we can now obtain our factors:</p>
+<pre class="r"><code>fit.fa &lt;- factanal(data.train[,-12], 3, rotation=&quot;varimax&quot;)
+print(fit.fa, digits=2, cutoff=.1, sort=TRUE)</code></pre>
+<pre><code>## 
+## Call:
+## factanal(x = data.train[, -12], factors = 3, rotation = &quot;varimax&quot;)
+## 
+## Uniquenesses:
+##        fixed.acidity     volatile.acidity          citric.acid 
+##                 0.00                 0.99                 0.91 
+##       residual.sugar            chlorides  free.sulfur.dioxide 
+##                 0.00                 0.86                 0.89 
+## total.sulfur.dioxide              density                   pH 
+##                 0.69                 0.00                 0.72 
+##            sulphates              alcohol 
+##                 0.97                 0.16 
+## 
+## Loadings:
+##                      Factor1 Factor2 Factor3
+## residual.sugar        0.86    0.14    0.48  
+## total.sulfur.dioxide  0.53           -0.13  
+## density               0.96    0.26          
+## alcohol              -0.78            0.47  
+## fixed.acidity                 0.99   -0.11  
+## volatile.acidity                            
+## citric.acid                   0.29          
+## chlorides             0.26           -0.27  
+## free.sulfur.dioxide   0.33                  
+## pH                           -0.46   -0.26  
+## sulphates                            -0.16  
+## 
+##                Factor1 Factor2 Factor3
+## SS loadings       2.75    1.38    0.66
+## Proportion Var    0.25    0.13    0.06
+## Cumulative Var    0.25    0.38    0.44
+## 
+## Test of the hypothesis that 3 factors are sufficient.
+## The chi square statistic is 4812.34 on 25 degrees of freedom.
+## The p-value is 0</code></pre>
+<p>As we have mentioned previously that factors are linear combinations of variables. <code>fit.pa$loadings</code> hold the information of which variable is included in which factor and its coefficient in linear combination.</p>
+</div>
+</div>
+<div id="non-linear" class="section level4">
+<h4>Non-linear</h4>
+<p>Non-linear feature extraction techniques aim to generate new features by using a non-linear combination of existing features.</p>
+<div id="multidimensional-scaling" class="section level5">
+<h5>Multidimensional Scaling</h5>
+<p>Multidimensional scaling uses similarity measures to reduce the dimension of the data. First we compute a distance matrix and based on that distance matrix, we reduce the dimension.</p>
+<pre class="r"><code>d &lt;- dist(data.train[,-12])
+fit.mds &lt;- cmdscale(d,eig=TRUE, k=2) #Reduce data to two variables
+new.data.mds &lt;- fit.mds$points</code></pre>
+<p>You can use <code>new.data.mds</code> instead of all the variables in the dataset.</p>
+</div>
+<div id="isomap" class="section level5">
+<h5>Isomap</h5>
+<p>Isomap is a similar function to multidimensional scaling and it extends metric multidimensional scaling (MDS) by incorporating the geodesic distances imposed by a weighted graph.</p>
+<pre class="r"><code># if  (&quot;vegan&quot;  %in%  rownames(installed.packages())  ==  FALSE){
+#   install.packages(&quot;vegan&quot;)
+# }
+require(vegan)
+d &lt;- vegdist(data.train[,-12])
+fit.iso &lt;- isomap(d, ndim=2, k = 3, fragmentedOK = T)
+#Reduce data to two variables (ndim) and retain 3 (k) distances per data point.
+#Data might be fragmented, we tell the function that it&#39;s ok.
+new.data.iso &lt;- fit.iso$points</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="feature-selection" class="section level2">
+<h2>Feature Selection</h2>
+<p>Feature selection is basically selecting the most appropriate subset of attributes based on the target attribute. Here, we will cover Minimum Redundancy Maximum Relevance (mRMR) feature selection. Note that there are other methods available for feature selection such as mutual information based criterion.</p>
+<div id="minimum-redundancy-maximum-relevance-mrmr" class="section level3">
+<h3>Minimum Redundancy Maximum Relevance (mRMR)</h3>
+<p>mRMR tries to maximize relevance according to the target variable based on mutual information and chooses a variable where the mutual information between the variable and the others is the least minimum (minimize redundancy).</p>
+<p>In order to perform mRMR feature selection, we will use <code>mRMRe</code>package.</p>
+<pre class="r"><code># if  (&quot;mRMRe&quot;  %in%  rownames(installed.packages())  ==  FALSE){
+#   install.packages(&quot;mRMRe&quot;)
+# }
+require(mRMRe)
+data(cgps) #load the data</code></pre>
+<p>We will use <code>mRMR.classic</code> function to select features. This function requires data frame with the columns of the following types: “numeric”, “ordered_factor” and “Surv”. Also, we should convert the data set as <code>mRMRe.Data</code> type. Then, we will use the <code>mRMR.classic</code> function with the parameters: <code>data</code>, <code>target_indices</code> (index of the target feature (column) from the data matrix), and <code>feature_count</code> (number of features to be selected by mRMR feature selection). In this example, we will select 3 features for 3 different target variables.</p>
+<pre class="r"><code># Convert the data type
+feature_data &lt;- mRMR.data(data =  data.frame(cgps.ge))
+# Create an mRMR filter and obtain the indices of selected features
+filter3 &lt;- mRMR.classic(data = feature_data, target_indices = 3:5,
+                       feature_count = 3)
+solutions(filter3)</code></pre>
+<pre><code>## $`3`
+##      [,1]
+## [1,]  592
+## [2,]  805
+## [3,]  673
+## 
+## $`4`
+##      [,1]
+## [1,]  578
+## [2,]  339
+## [3,]  251
+## 
+## $`5`
+##      [,1]
+## [1,]  149
+## [2,]  586
+## [3,]  160</code></pre>
+<p>As the output, we can see the three features selected for each target index. For example; mRMR function selected 592nd, 805th and 673th variables for the 3rd target variable; 578th, 339th and 251st variables for the 4th target variable, and 149th, 586th and 160th variables for the 5th target variable.</p>
+</div>
+</div>
+<div id="discretization" class="section level2">
+<h2>Discretization</h2>
+<p>Discretization methods aim to discretize continuous variables. For discretization we will use two packages. Namely, <code>discretization</code> and <code>arules</code>.</p>
+<p>Assume that we want to perform binning (either equal width or equal frequency), following code allows us to do that. Initially, we have a data frame of 11 predictor variables and one outcome variable. We want to discretize the predictor variables which are numeric. <code>discretize</code> function only works on vectors. Instead of discretizing all of the predictor variables one by one inside a for loop, we can use the <code>lapply</code> function which takes a function and applies it to all of the variables in a data frame. <code>discretize</code> function takes three main inputs: the data vector to be discretized, the method and the number of categories. Inside the <code>lapply</code> function, we also need to determine the method and the number of categories. <code>lapply</code> splits the data frame into vectors and gives them to the function as input. <code>lapply</code> returns a list as an output.</p>
+<p><code>discretize</code> function returns a vector of factors which represent the interval that that particular data point falls into. So if you want the numeric discretization, you need to apply <code>as.numeric</code> function to all variables, again we use <code>lapply</code> for this. Finally, we convert the list back to a data frame. For association mining, you may want to keep the factor form of discretization.</p>
+<pre class="r"><code>#Install and load packages
+# if  (&quot;arules&quot;  %in%  rownames(installed.packages())  ==  FALSE){
+#   install.packages(&quot;arules&quot;)
+# }
+require(arules)
+#Loop through all variables in dataset to discretize.
+data.eqw &lt;- NULL
+for (i in 1:11){ 
+  d &lt;- discretize(data.train[,i], method = &quot;interval&quot;, categories =3) 
+  data.eqw &lt;- cbind(data.eqw, d) 
+}
+names(data.eqw) &lt;- names(data.train[,-12])</code></pre>
+<pre class="r"><code>#Or equivalently we can use lapply syntax
+#Apply equal width binning discretization to all variables in dataset.
+data.eqw &lt;- data.frame(lapply(data.train[,-12],
+                              FUN = discretize, method = &quot;interval&quot;, categories = 3))
+#Take a look at first few data points in the data.eqw
+head(data.eqw)</code></pre>
+<pre><code>##   fixed.acidity volatile.acidity citric.acid residual.sugar     chlorides
+## 1    [3.9,7.33)      [0.08,0.42)   [0,0.553)    [10.9,21.3) [0.012,0.123)
+## 2    [3.9,7.33)      [0.08,0.42)   [0,0.553)     [0.6,10.9) [0.012,0.123)
+## 3   [7.33,10.8)      [0.08,0.42)   [0,0.553)     [0.6,10.9) [0.012,0.123)
+## 4    [3.9,7.33)      [0.08,0.42)   [0,0.553)     [0.6,10.9) [0.012,0.123)
+## 5    [3.9,7.33)      [0.08,0.42)   [0,0.553)     [0.6,10.9) [0.012,0.123)
+## 6   [7.33,10.8)      [0.08,0.42)   [0,0.553)     [0.6,10.9) [0.012,0.123)
+##   free.sulfur.dioxide total.sulfur.dioxide       density          pH
+## 1            [2,97.7)            [153,297)     [0.995,1) [2.72,3.09)
+## 2            [2,97.7)             [10,153) [0.987,0.995) [3.09,3.45)
+## 3            [2,97.7)             [10,153)     [0.995,1) [3.09,3.45)
+## 4            [2,97.7)            [153,297)     [0.995,1) [3.09,3.45)
+## 5            [2,97.7)            [153,297)     [0.995,1) [3.09,3.45)
+## 6            [2,97.7)             [10,153)     [0.995,1) [3.09,3.45)
+##      sulphates alcohol
+## 1 [0.22,0.507)  [8,10)
+## 2 [0.22,0.507)  [8,10)
+## 3 [0.22,0.507) [10,12)
+## 4 [0.22,0.507)  [8,10)
+## 5 [0.22,0.507)  [8,10)
+## 6 [0.22,0.507) [10,12)</code></pre>
+<pre class="r"><code>#Turn it into a numeric data frame
+data.eqw &lt;- data.frame(lapply(data.eqw, as.numeric))
+#Take a second look at first few data points in the data.eqw
+head(data.eqw)</code></pre>
+<pre><code>##   fixed.acidity volatile.acidity citric.acid residual.sugar chlorides
+## 1             1                1           1              2         1
+## 2             1                1           1              1         1
+## 3             2                1           1              1         1
+## 4             1                1           1              1         1
+## 5             1                1           1              1         1
+## 6             2                1           1              1         1
+##   free.sulfur.dioxide total.sulfur.dioxide density pH sulphates alcohol
+## 1                   1                    2       2  1         1       1
+## 2                   1                    1       1  2         1       1
+## 3                   1                    1       2  2         1       2
+## 4                   1                    2       2  2         1       1
+## 5                   1                    2       2  2         1       1
+## 6                   1                    1       2  2         1       2</code></pre>
+<pre class="r"><code>#For equal frequency
+data.eqf &lt;- lapply(data.train[,-12], 
+                   FUN = discretize, method = &quot;frequency&quot;, categories = 3) 
+data.eqf &lt;- data.frame(lapply(data.eqf, as.numeric)) </code></pre>
+<pre class="r"><code>#For k-means clustering discretization 
+data.eqc &lt;- lapply(data.train[,-12], 
+                   FUN = discretize, method = &quot;cluster&quot;, categories = 3) 
+data.eqc &lt;- data.frame(lapply(data.eqc, as.numeric)) </code></pre>
+<pre class="r"><code>#You can also use user-specified intervals 
+##Lets assume that we want to discretize by quantiles of each variable 
+cats &lt;- data.frame(lapply(data.train[,-12], FUN = quantile)) #We need to add -Inf and Inf as lower and upper boundaries. #rep function replicates the given value or variable by given number. 
+cats &lt;- rbind(rep(-Inf, 11), cats, rep(Inf,11)) 
+#In this case we need to use mapply instead of lapply because
+#we have multiple different inputs to the function for each variable 
+data.us &lt;- data.frame(mapply(data.train[,-12], 
+                             FUN = discretize, method = &quot;fixed&quot;, categories = cats)) 
+data.us &lt;- data.frame(lapply(data.us, as.numeric))</code></pre>
+<p>If you want to use different boundaries for each variable, just bind them into a data.frame and pass it into mapply as we did above. Don’t forget to add <code>-Inf</code> and <code>Inf</code>.</p>
+<p>We can also use Minimum Description Length Principle (<code>mdlp</code>) to discretize the data points, which uses entropy criterion to determine the optimal discretization. It returns two lists. One holds the cutpoints (boundaries) of the discretization, and the second one holds the discretized data. Keep in mind that <code>mdlp</code> is a supervised clustering method, so you need to provide the outcome variable along with the dataset. By default, <code>mdlp</code> assumes the last column in your data frame to be the outcome variable, which is true in our case as our outcome variable is “quality”.</p>
+<pre class="r"><code>#Install and load packages
+# if  (&quot;discretization&quot;  %in%  rownames(installed.packages())  ==  FALSE){
+#   install.packages(&quot;discretization&quot;)
+# }
+require(discretization)</code></pre>
+<pre class="r"><code>#Loop through all variables in dataset to discretize.
+data.mdlp &lt;- mdlp(data.train)
+summary(data.mdlp$Disc.data)</code></pre>
+<pre><code>##  fixed.acidity   volatile.acidity  citric.acid    residual.sugar 
+##  Min.   :1.000   Min.   :1.000    Min.   :1.000   Min.   :1.000  
+##  1st Qu.:1.000   1st Qu.:1.000    1st Qu.:3.000   1st Qu.:1.000  
+##  Median :1.000   Median :2.000    Median :3.000   Median :2.000  
+##  Mean   :1.058   Mean   :2.054    Mean   :3.008   Mean   :2.234  
+##  3rd Qu.:1.000   3rd Qu.:3.000    3rd Qu.:3.000   3rd Qu.:3.000  
+##  Max.   :2.000   Max.   :4.000    Max.   :4.000   Max.   :4.000  
+##    chlorides     free.sulfur.dioxide total.sulfur.dioxide    density    
+##  Min.   :1.000   Min.   :1.000       Min.   :1.000        Min.   :1.00  
+##  1st Qu.:1.000   1st Qu.:2.000       1st Qu.:2.000        1st Qu.:2.00  
+##  Median :2.000   Median :2.000       Median :3.000        Median :3.00  
+##  Mean   :1.877   Mean   :2.138       Mean   :2.885        Mean   :2.93  
+##  3rd Qu.:3.000   3rd Qu.:2.000       3rd Qu.:4.000        3rd Qu.:4.00  
+##  Max.   :3.000   Max.   :4.000       Max.   :4.000        Max.   :5.00  
+##        pH          sulphates        alcohol         quality     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :3.000  
+##  1st Qu.:1.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:5.000  
+##  Median :1.000   Median :2.000   Median :3.000   Median :6.000  
+##  Mean   :1.316   Mean   :2.145   Mean   :2.974   Mean   :5.881  
+##  3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:4.000   3rd Qu.:6.000  
+##  Max.   :2.000   Max.   :3.000   Max.   :5.000   Max.   :9.000</code></pre>
+<p><strong>Useful Links</strong>:</p>
+<ul>
+<li>Statsoft PCA and Factor Analysis: <a href="http://www.statsoft.com/Textbook/Principal-Components-Factor-Analysis" class="uri">http://www.statsoft.com/Textbook/Principal-Components-Factor-Analysis</a>
+<ul>
+<li>Details on PCA and Factor Analysis</li>
+</ul></li>
+<li>Statsoft Multidimensional Scaling: <a href="http://www.statsoft.com/Textbook/Multidimensional-Scaling" class="uri">http://www.statsoft.com/Textbook/Multidimensional-Scaling</a>
+<ul>
+<li>Details on multidimensional scaling</li>
+</ul></li>
+<li>Caret webpage: <a href="http://topepo.github.io/caret/index.html" class="uri">http://topepo.github.io/caret/index.html</a>
+<ul>
+<li>Detailed information about caret package</li>
+</ul></li>
+<li>Dimensionality reduction in R: <a href="https://en.wikibooks.org/wiki/Data_Mining_Algorithms_In_R/Dimensionality_Reduction" class="uri">https://en.wikibooks.org/wiki/Data_Mining_Algorithms_In_R/Dimensionality_Reduction</a>
+<ul>
+<li>Details on using R for dimensionality reduction</li>
+</ul></li>
+</ul>
+<p>Further useful documents will be uploaded to METU Class.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
