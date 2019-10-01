@@ -329,7 +329,7 @@ $(document).ready(function () {
 
 
 <p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a> Notebook. When you execute code within the notebook, the results appear beneath the code. The purpose of this notebook is to enable you to play around with basic functionalities of R.</p>
-<p>The website you see now is a rendered HTML file. to play with the .Rmd file, go to the <a href="#">original repository</a> and download the .Rmd file and run the codes in RStudio.</p>
+<p>The website you see now is a rendered HTML file. to play with the .Rmd file, go to the <a href="https://github.com/makyol/datascience">original repository</a> and download the .Rmd file and run the codes in RStudio.</p>
 <div id="data-structures-of-r" class="section level2">
 <h2>Data Structures of R</h2>
 <pre class="r"><code>first_variable = &#39;This is my first R variable.&#39;
@@ -732,8 +732,8 @@ str(iris)</code></pre>
 <p><code>str</code> function outputs the names, types and first few entries of a data frame. This allows you to take a quick look at the data. As you can see, ‘Species’ variable in the data frame is a new data type called “Factor”. This is essentially a character variable with known amount of different values. This allows R to run count-type statistics on it. Most character variables are represented as factors by default when loading into data frames unless explicitly specified. We will talk more about factors later.</p>
 </div>
 </div>
-<div id="basic-statistics" class="section level3">
-<h3>Basic Statistics</h3>
+<div id="basic-descriptive-statistics" class="section level3">
+<h3>Basic Descriptive Statistics</h3>
 <p>Summary function outputs basic statistics regarding the data frame. For numeric variables, these statistics describe the five-point statistics. For factor variables, this is of count-type. If we represented our character variable as character type instead of factor, that would be impossible.</p>
 <pre class="r"><code>iris$Species = as.character(iris$Species)
 summary(iris)</code></pre>
@@ -775,6 +775,13 @@ iris$New_Numeric_Var_2 = iris$Sepal.Length/(iris$Sepal.Width+0.00001)</code></pr
 <p>In the first line, I indexed the variables using the prefered method and made a new variable. In the second line, I used the simple method and made a new variable. I also added a scalar to all values in <code>Sepal.Width</code> variable. R is a very flexible language. You can do most computations without explicitly casting the data into the same dimension, however this may cause issues. I won’t demonstrate this for now, but make sure to regularly check your data for any inconsistencies that this flexibility might cause.</p>
 </div>
 </div>
+<div id="save-load-environment-objects-in-r" class="section level2">
+<h2>Save / Load Environment Objects in R</h2>
+<p>You can serialize and save any object or even the whole environment in R. For this, you can use <code>save.image</code> function.</p>
+<p>After we had created some objects into the R environment, you can use it to save the entire list of environment objects to a file. By using <code>load</code> function you can load back the saved environment.</p>
+<pre class="r"><code>save.image(file=&#39;myEnvironment.RData&#39;)
+load(&#39;myEnvironment.RData&#39;)</code></pre>
+</div>
 <div id="installing-packages" class="section level2">
 <h2>Installing Packages</h2>
 <p>For future tasks, you will need to install different packages. To perform this installation, either select “Install Packages” from “Tools” menu in RStudio, or use the <code>install.packages</code> command in console. Let’s install <code>stringr</code> package that you will be using in the class using this command.</p>
@@ -785,6 +792,200 @@ iris$New_Numeric_Var_2 = iris$Sepal.Length/(iris$Sepal.Width+0.00001)</code></pr
   install.packages(&quot;stringr&quot;) 
 }</code></pre>
 <p>What this chunk does is, checks whether <code>stringr</code> is installed and installs it if it’s not installed. <code>installed.packages()</code> command lists all the installed packages in your default libraries. <code>%in%</code> expression checks whether the left hand side is in the right hand side and ‘!’ notation is negation in R. As before, ‘install.packages’ command installs the package. There are for loops, while loops, try-catch structures etc. in R. We can talk about these when the need arises. If you want to see more examples on control structures, go to <a href="https://www.r-bloggers.com/control-structures-loops-in-r/">one of</a> the several tutorials available online.</p>
+</div>
+<div id="basic-data-wrangling-with-dplyr" class="section level2">
+<h2>Basic Data Wrangling with <code>dplyr</code></h2>
+<p>The dplyr package makes these steps fast and easy:</p>
+<ul>
+<li>By constraining your options, it helps you think about your data manipulation challenges.</li>
+<li>It provides simple “verbs”, functions that correspond to the most common data manipulation tasks, to help you translate your thoughts into code.</li>
+<li>It uses efficient backends, so you spend less time waiting for the computer.</li>
+</ul>
+<p><code>%&gt;%</code> is called pipe. By piping each function in the dplyr package, you can make various analysis.</p>
+<p>Below, we present some of the basic things you can do with it. For more, please refer to the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html">official dplyr documentation</a>.</p>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>iris %&gt;% select(Sepal.Length, Sepal.Width) # Selects only 2 columns in the data frame.</code></pre>
+<pre><code>##     Sepal.Length Sepal.Width
+## 1            5.1         3.5
+## 2            4.9         3.0
+## 3            4.7         3.2
+## 4            4.6         3.1
+## 5            5.0         3.6
+## 6            5.4         3.9
+## 7            4.6         3.4
+## 8            5.0         3.4
+## 9            4.4         2.9
+## 10           4.9         3.1
+## 11           5.4         3.7
+## 12           4.8         3.4
+## 13           4.8         3.0
+## 14           4.3         3.0
+## 15           5.8         4.0
+## 16           5.7         4.4
+## 17           5.4         3.9
+## 18           5.1         3.5
+## 19           5.7         3.8
+## 20           5.1         3.8
+## 21           5.4         3.4
+## 22           5.1         3.7
+## 23           4.6         3.6
+## 24           5.1         3.3
+## 25           4.8         3.4
+## 26           5.0         3.0
+## 27           5.0         3.4
+## 28           5.2         3.5
+## 29           5.2         3.4
+## 30           4.7         3.2
+## 31           4.8         3.1
+## 32           5.4         3.4
+## 33           5.2         4.1
+## 34           5.5         4.2
+## 35           4.9         3.1
+## 36           5.0         3.2
+## 37           5.5         3.5
+## 38           4.9         3.6
+## 39           4.4         3.0
+## 40           5.1         3.4
+## 41           5.0         3.5
+## 42           4.5         2.3
+## 43           4.4         3.2
+## 44           5.0         3.5
+## 45           5.1         3.8
+## 46           4.8         3.0
+## 47           5.1         3.8
+## 48           4.6         3.2
+## 49           5.3         3.7
+## 50           5.0         3.3
+## 51           7.0         3.2
+## 52           6.4         3.2
+## 53           6.9         3.1
+## 54           5.5         2.3
+## 55           6.5         2.8
+## 56           5.7         2.8
+## 57           6.3         3.3
+## 58           4.9         2.4
+## 59           6.6         2.9
+## 60           5.2         2.7
+## 61           5.0         2.0
+## 62           5.9         3.0
+## 63           6.0         2.2
+## 64           6.1         2.9
+## 65           5.6         2.9
+## 66           6.7         3.1
+## 67           5.6         3.0
+## 68           5.8         2.7
+## 69           6.2         2.2
+## 70           5.6         2.5
+## 71           5.9         3.2
+## 72           6.1         2.8
+## 73           6.3         2.5
+## 74           6.1         2.8
+## 75           6.4         2.9
+## 76           6.6         3.0
+## 77           6.8         2.8
+## 78           6.7         3.0
+## 79           6.0         2.9
+## 80           5.7         2.6
+## 81           5.5         2.4
+## 82           5.5         2.4
+## 83           5.8         2.7
+## 84           6.0         2.7
+## 85           5.4         3.0
+## 86           6.0         3.4
+## 87           6.7         3.1
+## 88           6.3         2.3
+## 89           5.6         3.0
+## 90           5.5         2.5
+## 91           5.5         2.6
+## 92           6.1         3.0
+## 93           5.8         2.6
+## 94           5.0         2.3
+## 95           5.6         2.7
+## 96           5.7         3.0
+## 97           5.7         2.9
+## 98           6.2         2.9
+## 99           5.1         2.5
+## 100          5.7         2.8
+## 101          6.3         3.3
+## 102          5.8         2.7
+## 103          7.1         3.0
+## 104          6.3         2.9
+## 105          6.5         3.0
+## 106          7.6         3.0
+## 107          4.9         2.5
+## 108          7.3         2.9
+## 109          6.7         2.5
+## 110          7.2         3.6
+## 111          6.5         3.2
+## 112          6.4         2.7
+## 113          6.8         3.0
+## 114          5.7         2.5
+## 115          5.8         2.8
+## 116          6.4         3.2
+## 117          6.5         3.0
+## 118          7.7         3.8
+## 119          7.7         2.6
+## 120          6.0         2.2
+## 121          6.9         3.2
+## 122          5.6         2.8
+## 123          7.7         2.8
+## 124          6.3         2.7
+## 125          6.7         3.3
+## 126          7.2         3.2
+## 127          6.2         2.8
+## 128          6.1         3.0
+## 129          6.4         2.8
+## 130          7.2         3.0
+## 131          7.4         2.8
+## 132          7.9         3.8
+## 133          6.4         2.8
+## 134          6.3         2.8
+## 135          6.1         2.6
+## 136          7.7         3.0
+## 137          6.3         3.4
+## 138          6.4         3.1
+## 139          6.0         3.0
+## 140          6.9         3.1
+## 141          6.7         3.1
+## 142          6.9         3.1
+## 143          5.8         2.7
+## 144          6.8         3.2
+## 145          6.7         3.3
+## 146          6.7         3.0
+## 147          6.3         2.5
+## 148          6.5         3.0
+## 149          6.2         3.4
+## 150          5.9         3.0</code></pre>
+<pre class="r"><code>iris %&gt;% filter(Sepal.Length &lt; 5, Sepal.Width &gt; 3.5) # You can filter the data frame.</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          4.6         3.6          1.0         0.2  setosa
+## 2          4.9         3.6          1.4         0.1  setosa
+##   New_Numeric_Var_1 New_Numeric_Var_2
+## 1               8.2          1.277774
+## 2               8.5          1.361107</code></pre>
+<pre class="r"><code>iris %&gt;% rowwise() %&gt;% summarise(Sepal.Area = Sepal.Length*Sepal.Width) # You can create new features</code></pre>
+<pre><code>## # A tibble: 150 x 1
+##    Sepal.Area
+##         &lt;dbl&gt;
+##  1       17.8
+##  2       14.7
+##  3       15.0
+##  4       14.3
+##  5       18  
+##  6       21.1
+##  7       15.6
+##  8       17  
+##  9       12.8
+## 10       15.2
+## # … with 140 more rows</code></pre>
 </div>
 
 

@@ -13,7 +13,7 @@ The Jupyter Notebook is an open-source web application that allows you to create
 
 Additionally, it is a good idea to get yourself familiar with The Jupyter Notebook as it is one of those tools that is widely used in the data science community.
 
-You will be asked to complete all your projects on Azure Notebooks and deliver your assignment as a public Azure Notebooks project with the assistant. It is your own responsibility not to share your projects with other students but only with the course assistant. 
+You might be asked to complete some of projects on Azure Notebooks and deliver your assignment as a public Azure Notebooks project with the assistant. It is your own responsibility not to share your projects with other students but only with the course assistant. 
 
 In this tutorial, we are going to introduce the Azure Notebooks environment. Please follow the steps presented in the next pages by yourself and share your public project link in the Odtu Class as your first assignment.
 
