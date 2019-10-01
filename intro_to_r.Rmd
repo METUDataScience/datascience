@@ -5,7 +5,7 @@ output: html_document
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. The purpose of this notebook is to enable you to play around with basic functionalities of R.
 
-The website you see now is a rendered HTML file. to play with the .Rmd file, go to the [original repository](https://github.com/makyol/datascience) and download the .Rmd file and run the codes in RStudio. 
+The website you see now is a rendered HTML file. If you want to play with the .Rmd file, you can go to the [original repository](https://github.com/makyol/datascience), download the .Rmd file and run it on RStudio. 
 
 ## Data Structures of R
 
@@ -22,10 +22,10 @@ There are various types in R such as character, numeric (float), integer etc. Le
 
 ```{r, message=FALSE, warning=FALSE}
 # An integer. Also you can use comments with #
-lecture_code = 580
+lecture_code = 709
 
 # A character variable
-lecture_name = 'Knowledge Discovery and Mining'
+lecture_name = 'Introduction to Data Science'
 
 # A float
 random_float = 1.2
@@ -42,7 +42,7 @@ There are several ways to assign vectors to a variable. They are listed below an
 dept_lecture_code = c(901, 580)
 
 # A character vector
-dept_lecture_name = c("Information Systems", "Knowledge Discovery and Mining")
+dept_lecture_name = c("Information Systems", "Introduction to Data Science")
 ```
 
 You can also use `assign` function to create vectors:
@@ -523,7 +523,7 @@ Below, we present some of the basic things you can do with it. For more, please 
 
 ```{r}
 library(dplyr)
-iris %>% select(Sepal.Length, Sepal.Width) # Selects only 2 columns in the data frame.
+head(iris %>% select(Sepal.Length, Sepal.Width)) # Selects only 2 columns in the data frame.
 ```
 
 
