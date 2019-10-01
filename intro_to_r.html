@@ -349,8 +349,8 @@ lecture_name = &#39;Knowledge Discovery and Mining&#39;
 # A float
 random_float = 1.2</code></pre>
 </div>
-<div id="vectors" class="section level3">
-<h3>Vectors</h3>
+<div id="vector" class="section level3">
+<h3>Vector</h3>
 <p>Vector is an R structure that holds values of the same type (e.g. numeric, character). Vectors are 1-dimensional data structures. The only dimension they have is called “length”.</p>
 <p>There are several ways to assign vectors to a variable. They are listed below and they are all identical:</p>
 <pre class="r"><code># An integer vector
@@ -359,7 +359,7 @@ dept_lecture_code = c(901, 580)
 # A character vector
 dept_lecture_name = c(&quot;Information Systems&quot;, &quot;Knowledge Discovery and Mining&quot;)</code></pre>
 <p>You can also use <code>assign</code> function to create vectors:</p>
-<pre class="r"><code>assign(&quot;lecture_prof_assistant&quot;,c(&quot;Tugba Temizel&quot;,&quot;Seyma Cavdar&quot;))</code></pre>
+<pre class="r"><code>assign(&quot;lecture_prof_assistant&quot;,c(&quot;Tugba Taşkaya Temizel&quot;,&quot;Mehmet Ali Akyol&quot;))</code></pre>
 <p>You can concatenate vectors and assign to a new vector:</p>
 <pre class="r"><code>codes_names_vector = c(dept_lecture_code, dept_lecture_name, lecture_prof_assistant)</code></pre>
 <p>As you can see <code>c</code> function stands for ‘combine’. It can combine explicit values or different vectors together to form a new vector.</p>
@@ -620,6 +620,23 @@ rbind(A,B)</code></pre>
 </div>
 <div id="lists" class="section level3">
 <h3>Lists</h3>
+<p>Lists are the R objects which contain elements of different types like − numbers, strings, vectors and another list inside it. A list can also contain a matrix or a function as its elements.</p>
+<pre class="r"><code>x &lt;- list(&quot;a&quot; = 2.5, &quot;b&quot; = TRUE, &quot;c&quot; = 1:3)
+str(x)</code></pre>
+<pre><code>## List of 3
+##  $ a: num 2.5
+##  $ b: logi TRUE
+##  $ c: int [1:3] 1 2 3</code></pre>
+<div id="accessing-elements-in-a-list" class="section level4">
+<h4>Accessing elements in a list</h4>
+<p>Lists can be accessed in similar fashion to vectors. Integer, logical or character vectors can be used for indexing. Followings are some of the different methods to accessing an element in the list.</p>
+<pre class="r"><code>x[&quot;a&quot;] # give us a sublist not the content inside</code></pre>
+<pre><code>## $a
+## [1] 2.5</code></pre>
+<pre class="r"><code>x[[&quot;a&quot;]] # to retrieve the content</code></pre>
+<pre><code>## [1] 2.5</code></pre>
+<pre class="r"><code>x$a # same as x[[&quot;a&quot;]]</code></pre>
+<pre><code>## [1] 2.5</code></pre>
 <p>An R list is an object consisting of an ordered collection of objects known as its components.</p>
 <p>There is no particular need for the components to be of the same mode or type, and, for example, a list could consist of a numeric vector, a logical value, a matrix, a complex vector, a character array, a function, and so on. Here is a simple example of how to make a list:</p>
 <pre class="r"><code>#A list
@@ -650,19 +667,58 @@ family$childAges[1]</code></pre>
 <pre class="r"><code>family[[4]][[1]]</code></pre>
 <pre><code>## [1] 4</code></pre>
 </div>
-<div id="data-frames" class="section level3">
-<h3>Data Frames</h3>
-<p>A data frame is a list with class “data.frame”. There are restrictions on lists that may be made into data frames, namely * The components must be vectors (numeric, character, or logical), factors, numeric matrices, lists, or other data frames. * Matrices, lists, and data frames provide as many variables to the new data frame as they have columns, elements, or variables, respectively. * Numeric vectors, logicals and factors are included as is, and by default1 character vectors are coerced to be factors, whose levels are the unique values appearing in the vector. * Vector structures appearing as variables of the data frame must all have the same length, and matrix structures must all have the same row size.</p>
+</div>
+<div id="data-frame" class="section level3">
+<h3>Data Frame</h3>
+<p>A data frame is a list with class “data.frame”. There are restrictions on lists that may be made into data frames, namely</p>
+<ul>
+<li>The components must be vectors (numeric, character, or logical), factors, numeric matrices, lists, or other data frames.</li>
+<li>Matrices, lists, and data frames provide as many variables to the new data frame as they have columns, elements, or variables, respectively.</li>
+<li>Numeric vectors, logicals and factors are included as is, and by default1 character vectors are coerced to be factors, whose levels are the unique values appearing in the vector.</li>
+<li>Vector structures appearing as variables of the data frame must all have the same length, and matrix structures must all have the same row size.</li>
+</ul>
 <p>A data frame may for many purposes be regarded as a matrix with columns possibly of differing modes and attributes. It may be displayed in matrix form, and its rows and columns extracted using matrix indexing conventions.</p>
+<p>A data frame is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column.</p>
+<div id="creating-a-data-frame-from-vectors" class="section level4">
+<h4>Creating a data frame from vectors</h4>
+<pre class="r"><code>employee &lt;- c(&#39;John Doe&#39;,&#39;Peter Gynn&#39;,&#39;Jolie Hope&#39;) #vector
+salary &lt;- c(21000, 23400, 26800) #vector
+startdate &lt;- as.Date(c(&#39;2010-11-1&#39;,&#39;2008-3-25&#39;,&#39;2007-3-14&#39;)) #vector
+
+data = data.frame(employee, salary, startdate) # data frame
+data</code></pre>
+<pre><code>##     employee salary  startdate
+## 1   John Doe  21000 2010-11-01
+## 2 Peter Gynn  23400 2008-03-25
+## 3 Jolie Hope  26800 2007-03-14</code></pre>
 <pre class="r"><code># A data frame
 codes_names_df = data.frame(dept_lecture_code, dept_lecture_name)</code></pre>
-<p>##Reading Data from Files</p>
+</div>
+<div id="reading-data-from-files" class="section level4">
+<h4>Reading Data from Files</h4>
 <p>Large data objects will usually be read as values from external files rather than entered during an R session at the keyboard. R input facilities are simple and their requirements are fairly strict and even rather inflexible. There is a clear presumption by the designers of R that you will be able to modify your input files using other tools, such as file editors or Perl1 to fit in with the requirements of R. Generally this is very simple.</p>
 <p>If variables are to be held mainly in data frames, as we strongly suggest they should be, an entire data frame can be read directly with the <code>read.table()</code> function. There is also a more primitive input function, <code>scan()</code>, that can be called directly.</p>
+<p>One of the main methods to read a data from files is to use built-in <code>read.csv</code> method. It basically reads the .csv files. You can set whether to collect the header (the first row in the .csv file) or the line seperator in the file as options.</p>
+<pre class="r"><code>data = read.csv(&quot;cars.csv&quot;, header = T, sep = &quot;;&quot;)
+head(data)</code></pre>
+<pre><code>##                         Car    MPG Cylinders Displacement Horsepower
+## 1                    STRING DOUBLE       INT       DOUBLE     DOUBLE
+## 2 Chevrolet Chevelle Malibu   18.0         8        307.0      130.0
+## 3         Buick Skylark 320   15.0         8        350.0      165.0
+## 4        Plymouth Satellite   18.0         8        318.0      150.0
+## 5             AMC Rebel SST   16.0         8        304.0      150.0
+## 6               Ford Torino   17.0         8        302.0      140.0
+##   Weight Acceleration Model Origin
+## 1 DOUBLE       DOUBLE   INT    CAT
+## 2  3504.         12.0    70     US
+## 3  3693.         11.5    70     US
+## 4  3436.         11.0    70     US
+## 5  3433.         12.0    70     US
+## 6  3449.         10.5    70     US</code></pre>
 <p>For more details on importing data into R and also exporting data, see the R Data Import/Export manual.</p>
 </div>
-<div id="accessing-built-in-data-sets" class="section level3">
-<h3>Accessing built-in data sets</h3>
+<div id="accessing-built-in-data-sets" class="section level4">
+<h4>Accessing built-in data sets</h4>
 <p>Around 100 datasets are supplied with R (in package datasets), and others are available in packages (including the recommended packages supplied with R). To see the list of datasets currently available use <code>data()</code>.</p>
 <pre class="r"><code># Iris is an existing dataset in R. You can load it directly
 data(iris)
@@ -674,6 +730,7 @@ str(iris)</code></pre>
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p><code>str</code> function outputs the names, types and first few entries of a data frame. This allows you to take a quick look at the data. As you can see, ‘Species’ variable in the data frame is a new data type called “Factor”. This is essentially a character variable with known amount of different values. This allows R to run count-type statistics on it. Most character variables are represented as factors by default when loading into data frames unless explicitly specified. We will talk more about factors later.</p>
+</div>
 </div>
 <div id="basic-statistics" class="section level3">
 <h3>Basic Statistics</h3>

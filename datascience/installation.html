@@ -11,7 +11,7 @@
 
 
 
-<title>Introduction to Data Science</title>
+<title>How to Install R and RStudio</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -323,47 +323,32 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Introduction to Data Science</h1>
+<h1 class="title toc-ignore">How to Install R and RStudio</h1>
 
 </div>
 
 
-<p>Welcome to Introduction to Data Science page. This lecture will be given by <a href="https://blog.metu.edu.tr/ttemizel/">Assoc.Prof.Dr.Tugba Taskaya Temizel</a>. The assistant who will be doing the applied portion of the course is <a href="https://mehmetaliakyol.com">Mehmet Ali Akyol</a>.</p>
-<p>This page will contain the lab codes for the class as RMarkdown documents. You can go to the <a href="https://github.com/makyol/datascience">Github repository</a> for the full Rmarkdown files to use in your local environment.The entirety of materials will be available through ODTU-Class. This blog only aims to provide a collection of rendered RMarkdown files.</p>
-<p>The syllabus for this year’s lecture is as follows:</p>
+<div id="windowsmac" class="section level2">
+<h2>Windows/Mac</h2>
 <ul>
-<li>Week 1: Introduction to Data Science: Basic Concepts</li>
-<li>Week 2: Platforms &amp; Workbenches</li>
-<li>Week 3: Probability &amp; Statistics Review</li>
-<li>Week 4: Understanding Data: Exploratory Data Analysis</li>
-<li>Week 5: Understanding Data: Descriptive Analytics &amp; Visualization</li>
-<li>Week 6: Data Acquisition and Preprocessing: Part I</li>
-<li>Week 7: Data Acquisition and Preprocessing: Part II</li>
-<li>Week 8: Practical Machine Learning: Part I</li>
-<li>Week 9: Practical Machine Learning (ML): Part II</li>
-<li>Week 10: Model Evaluation and Performance Metrics</li>
-<li>Week 11: Data Storytelling</li>
-<li>Week 12: Current Topics in Data Science: Part I – Big Data, ML Advance Topics &amp; Data Mining</li>
-<li>Week 13: Current Topics in Data Science: Part II – Prescriptive Analytics &amp; Decision Support Systems</li>
-<li>Week 14: Data Driven Organizations, Ethics and Legal Issues in Data Science</li>
+<li>Go to <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> and select “Download R for Windows” and follow the instructions regarding your installation.</li>
+<li>For installation, please make sure to install your R into a directory without blank spaces. (i.e. D:/R) This is important for further package installations.</li>
+<li>After installing R, download and install Rstudio Desktop from <a href="https://www.rstudio.com/products/RStudio/" class="uri">https://www.rstudio.com/products/RStudio/</a> if you are familiar with networking principles you can also use Rstudio server however for first time users desktop is recommended.</li>
 </ul>
-<p>The contents for the applied portion are as follows:</p>
+</div>
+<div id="ubuntu" class="section level2">
+<h2>Ubuntu</h2>
+<p>Install R using following commands:</p>
 <ul>
-<li>R/RStudio Installation</li>
-<li>Azure Notebooks</li>
-<li>Introduction to R <!-- * Descriptive statistics and visualization
-* Missing data handling
-* Dimensionality reduction and discretization
-* Association mining
-* Regression and time series
-* Classification and model evaluation--></li>
-</ul>
-<div id="external-resources" class="section level2">
-<h2>External Resources</h2>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=jZ952vChhuI">Quick Introduction to Jupyter Notebooks</a></li>
-<li><a href="https://rstudio.com/resources/cheatsheets/">Cheatsheets by RStudio</a></li>
-<li><a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">An Introduction to Statistical Learning</a></li>
+<li>sudo echo “deb <a href="http://cran.rstudio.com/bin/linux/ubuntu" class="uri">http://cran.rstudio.com/bin/linux/ubuntu</a> xenial/” | sudo tee -a /etc/apt/sources.list</li>
+<li>gpg –keyserver keyserver.ubuntu.com –recv-key E084DAB9</li>
+<li>gpg -a –export E084DAB9 | sudo apt-key add –</li>
+<li>sudo apt-get update</li>
+<li>sudo apt-get install r-base r-base-dev</li>
+<li>sudo apt-get install gdebi-core</li>
+<li>wget <a href="https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.5001-amd64.deb" class="uri">https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.5001-amd64.deb</a></li>
+<li>sudo gdebi -n rstudio-1.0.153-amd64.deb</li>
+<li>rm rstudio-*.deb</li>
 </ul>
 </div>
 
