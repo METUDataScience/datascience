@@ -29,12 +29,13 @@ The contents for the applied portion are as follows:
 
 * R/RStudio Installation
 * Azure Notebooks
-* Descriptive statistics and visualization
+* Introduction to R
+<!-- * Descriptive statistics and visualization
 * Missing data handling
 * Dimensionality reduction and discretization
 * Association mining
 * Regression and time series
-* Classification and model evaluation
+* Classification and model evaluation-->
 
 
 
