@@ -4,7 +4,7 @@ output: html_document
 ---
 
 ## Windows/Mac
--	Go to https://cran.r-project.org/ and select "Download R for Windows/Mac" and follow the instructions regarding your installation.
+-	Go to https://cran.r-project.org/ and select "Download R for Windows" and follow the instructions regarding your installation.
 -	For installation, please make sure to install your R into a directory without blank spaces. (i.e. D:/R) This is important for further package installations.
 -	After installing R, download and install Rstudio Desktop from https://www.rstudio.com/products/RStudio/ if you are familiar with networking principles you can also use Rstudio server however for first time users desktop is recommended.
 
