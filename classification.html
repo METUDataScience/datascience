@@ -12,7 +12,7 @@
 
 
 
-<title>Classification and Evaluation</title>
+<title>Classification</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -320,7 +320,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Classification and Evaluation</h1>
+<h1 class="title toc-ignore">Classification</h1>
 
 </div>
 
@@ -328,8 +328,7 @@ $(document).ready(function () {
 <p><strong>Objectives</strong>:</p>
 <p>The objective of this document is to give a brief introduction to classification methods and model evaluation. After completing this tutorial you will be able to:</p>
 <ul>
-<li>Generate classification models</li>
-<li>Calculate accuracy, sensitivity and specificity values</li>
+<li>Generate classification models <!--* Calculate accuracy, sensitivity and specificity values--></li>
 <li>Evaluate model performance <!--* Calculate AUC--></li>
 </ul>
 <p>Let’s load the data:</p>
@@ -356,32 +355,32 @@ confusionMatrix(testClass, predClass)</code></pre>
 ## 
 ##             Reference
 ## Prediction   setosa versicolor virginica
-##   setosa         12          0         0
-##   versicolor      0         18         0
-##   virginica       0          0        20
+##   setosa         17          0         0
+##   versicolor      0         15         2
+##   virginica       0          0        16
 ## 
 ## Overall Statistics
-##                                      
-##                Accuracy : 1          
-##                  95% CI : (0.9289, 1)
-##     No Information Rate : 0.4        
-##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16  
-##                                      
-##                   Kappa : 1          
-##                                      
-##  Mcnemar&#39;s Test P-Value : NA         
+##                                           
+##                Accuracy : 0.96            
+##                  95% CI : (0.8629, 0.9951)
+##     No Information Rate : 0.36            
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.94            
+##                                           
+##  Mcnemar&#39;s Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: setosa Class: versicolor Class: virginica
-## Sensitivity                   1.00              1.00              1.0
-## Specificity                   1.00              1.00              1.0
-## Pos Pred Value                1.00              1.00              1.0
-## Neg Pred Value                1.00              1.00              1.0
-## Prevalence                    0.24              0.36              0.4
-## Detection Rate                0.24              0.36              0.4
-## Detection Prevalence          0.24              0.36              0.4
-## Balanced Accuracy             1.00              1.00              1.0</code></pre>
+## Sensitivity                   1.00            1.0000           0.8889
+## Specificity                   1.00            0.9429           1.0000
+## Pos Pred Value                1.00            0.8824           1.0000
+## Neg Pred Value                1.00            1.0000           0.9412
+## Prevalence                    0.34            0.3000           0.3600
+## Detection Rate                0.34            0.3000           0.3200
+## Detection Prevalence          0.34            0.3400           0.3200
+## Balanced Accuracy             1.00            0.9714           0.9444</code></pre>
 <p>This has a pretty high accuracy. This is partly due to how clean our data is.</p>
 <p>The confusion matrix gives us a table that tells the overlap between true class and the predicted class. The columns give us the true class while the rows give us the predicted ones. Take a look at the <code>virginica</code> column in the confusion matrix. One instance of data that is actually <code>virginica</code> is classified as <code>versicolor</code>. Confusion matrix gives us information about the confusion of the classes by the model.</p>
 </div>
@@ -395,32 +394,32 @@ confusionMatrix(testClass, predClass)</code></pre>
 ## 
 ##             Reference
 ## Prediction   setosa versicolor virginica
-##   setosa         12          0         0
-##   versicolor      0         18         0
-##   virginica       0          2        18
+##   setosa         17          0         0
+##   versicolor      0         16         1
+##   virginica       0          2        14
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.96            
-##                  95% CI : (0.8629, 0.9951)
-##     No Information Rate : 0.4             
+##                Accuracy : 0.94            
+##                  95% CI : (0.8345, 0.9875)
+##     No Information Rate : 0.36            
 ##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.9389          
+##                   Kappa : 0.9099          
 ##                                           
 ##  Mcnemar&#39;s Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: setosa Class: versicolor Class: virginica
-## Sensitivity                   1.00            0.9000           1.0000
-## Specificity                   1.00            1.0000           0.9375
-## Pos Pred Value                1.00            1.0000           0.9000
-## Neg Pred Value                1.00            0.9375           1.0000
-## Prevalence                    0.24            0.4000           0.3600
-## Detection Rate                0.24            0.3600           0.3600
-## Detection Prevalence          0.24            0.3600           0.4000
-## Balanced Accuracy             1.00            0.9500           0.9688</code></pre>
+## Sensitivity                   1.00            0.8889           0.9333
+## Specificity                   1.00            0.9688           0.9429
+## Pos Pred Value                1.00            0.9412           0.8750
+## Neg Pred Value                1.00            0.9394           0.9706
+## Prevalence                    0.34            0.3600           0.3000
+## Detection Rate                0.34            0.3200           0.2800
+## Detection Prevalence          0.34            0.3400           0.3200
+## Balanced Accuracy             1.00            0.9288           0.9381</code></pre>
 <p>This also has a pretty high accuracy.</p>
 </div>
 <div id="decision-trees" class="section level2">
@@ -433,32 +432,32 @@ confusionMatrix(testClass, predClass)</code></pre>
 ## 
 ##             Reference
 ## Prediction   setosa versicolor virginica
-##   setosa         12          0         0
-##   versicolor      0         18         0
-##   virginica       0          3        17
+##   setosa         17          0         0
+##   versicolor      0         14         3
+##   virginica       0          0        16
 ## 
 ## Overall Statistics
 ##                                           
 ##                Accuracy : 0.94            
 ##                  95% CI : (0.8345, 0.9875)
-##     No Information Rate : 0.42            
-##     P-Value [Acc &gt; NIR] : 7.853e-15       
+##     No Information Rate : 0.38            
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.9084          
+##                   Kappa : 0.9101          
 ##                                           
 ##  Mcnemar&#39;s Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: setosa Class: versicolor Class: virginica
-## Sensitivity                   1.00            0.8571           1.0000
-## Specificity                   1.00            1.0000           0.9091
-## Pos Pred Value                1.00            1.0000           0.8500
-## Neg Pred Value                1.00            0.9062           1.0000
-## Prevalence                    0.24            0.4200           0.3400
-## Detection Rate                0.24            0.3600           0.3400
-## Detection Prevalence          0.24            0.3600           0.4000
-## Balanced Accuracy             1.00            0.9286           0.9545</code></pre>
+## Sensitivity                   1.00            1.0000           0.8421
+## Specificity                   1.00            0.9167           1.0000
+## Pos Pred Value                1.00            0.8235           1.0000
+## Neg Pred Value                1.00            1.0000           0.9118
+## Prevalence                    0.34            0.2800           0.3800
+## Detection Rate                0.34            0.2800           0.3200
+## Detection Prevalence          0.34            0.3400           0.3200
+## Balanced Accuracy             1.00            0.9583           0.9211</code></pre>
 <pre class="r"><code>require(rpart.plot)
 prp(decisionModel) </code></pre>
 <p><img src="classification_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -578,36 +577,36 @@ summary(class1.model)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.0925  -0.9433  -0.6581   1.0859   2.1689  
+## -2.0261  -0.9545  -0.6716   1.0664   2.1830  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept) -0.89123    0.74629  -1.194  0.23240    
-## w.age        0.08569    0.01189   7.207 5.71e-13 ***
-## w.ed2       -0.38835    0.30430  -1.276  0.20187    
-## w.ed3       -0.91056    0.31519  -2.889  0.00387 ** 
-## w.ed4       -1.59271    0.33788  -4.714 2.43e-06 ***
-## h.ed2       -0.40505    0.50372  -0.804  0.42133    
-## h.ed3       -0.31995    0.49421  -0.647  0.51738    
-## h.ed4       -0.10883    0.49975  -0.218  0.82760    
-## child       -0.35962    0.04257  -8.447  < 2e-16 ***
-## rel1         0.54978    0.20679   2.659  0.00785 ** 
-## w.occ1      -0.02320    0.16193  -0.143  0.88609    
-## h.occ2       0.14524    0.20468   0.710  0.47796    
-## h.occ3       0.05945    0.19643   0.303  0.76217    
-## h.occ4      -0.20488    0.52558  -0.390  0.69667    
-## ind2        -0.08141    0.29023  -0.280  0.77909    
-## ind3        -0.52942    0.27908  -1.897  0.05783 .  
-## ind4        -0.69016    0.28154  -2.451  0.01423 *  
-## med1         0.77075    0.32709   2.356  0.01845 *  
+## (Intercept) -0.68276    0.73471  -0.929 0.352736    
+## w.age        0.09316    0.01170   7.960 1.72e-15 ***
+## w.ed2       -0.32826    0.28754  -1.142 0.253617    
+## w.ed3       -0.65149    0.30125  -2.163 0.030570 *  
+## w.ed4       -1.37532    0.32583  -4.221 2.43e-05 ***
+## h.ed2       -0.37768    0.47524  -0.795 0.426773    
+## h.ed3       -0.41414    0.47353  -0.875 0.381808    
+## h.ed4       -0.37814    0.48091  -0.786 0.431687    
+## child       -0.34030    0.04175  -8.150 3.64e-16 ***
+## rel1         0.29183    0.21050   1.386 0.165643    
+## w.occ1      -0.05350    0.15875  -0.337 0.736106    
+## h.occ2       0.16792    0.20234   0.830 0.406603    
+## h.occ3       0.08033    0.19846   0.405 0.685637    
+## h.occ4      -0.39845    0.51749  -0.770 0.441326    
+## ind2        -0.48712    0.29089  -1.675 0.094013 .  
+## ind3        -0.68068    0.27920  -2.438 0.014770 *  
+## ind4        -0.96261    0.28360  -3.394 0.000688 ***
+## med1         0.25143    0.28871   0.871 0.383817    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 1400.1  on 1030  degrees of freedom
-## Residual deviance: 1222.1  on 1013  degrees of freedom
-## AIC: 1258.1
+##     Null deviance: 1403.4  on 1030  degrees of freedom
+## Residual deviance: 1235.5  on 1013  degrees of freedom
+## AIC: 1271.5
 ## 
 ## Number of Fisher Scoring iterations: 4
 ```
@@ -623,34 +622,32 @@ summary(class1.model2)
 ```
 ## 
 ## Call:
-## glm(formula = outcome ~ w.age + w.ed + child + rel + ind + med, 
-##     family = binomial("logit"), data = class1.train)
+## glm(formula = outcome ~ w.age + w.ed + child + ind, family = binomial("logit"), 
+##     data = class1.train)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.1115  -0.9324  -0.6580   1.0814   2.1551  
+## -2.1043  -0.9471  -0.6795   1.0814   2.1754  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept) -1.12932    0.52140  -2.166   0.0303 *  
-## w.age        0.08597    0.01170   7.351 1.97e-13 ***
-## w.ed2       -0.36573    0.29779  -1.228   0.2194    
-## w.ed3       -0.83699    0.29535  -2.834   0.0046 ** 
-## w.ed4       -1.46958    0.29916  -4.912 9.00e-07 ***
-## child       -0.36127    0.04205  -8.591  < 2e-16 ***
-## rel1         0.52216    0.20340   2.567   0.0103 *  
-## ind2        -0.06245    0.28844  -0.216   0.8286    
-## ind3        -0.48452    0.27440  -1.766   0.0774 .  
-## ind4        -0.64733    0.27448  -2.358   0.0184 *  
-## med1         0.77900    0.32398   2.404   0.0162 *  
+## (Intercept) -0.50650    0.42575  -1.190 0.234178    
+## w.age        0.09113    0.01123   8.117 4.76e-16 ***
+## w.ed2       -0.46034    0.26638  -1.728 0.083961 .  
+## w.ed3       -0.81201    0.26179  -3.102 0.001924 ** 
+## w.ed4       -1.56749    0.26583  -5.897 3.71e-09 ***
+## child       -0.33143    0.04068  -8.146 3.75e-16 ***
+## ind2        -0.50096    0.28799  -1.739 0.081948 .  
+## ind3        -0.74185    0.26952  -2.752 0.005914 ** 
+## ind4        -1.05501    0.27128  -3.889 0.000101 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 1400.1  on 1030  degrees of freedom
-## Residual deviance: 1224.8  on 1020  degrees of freedom
-## AIC: 1246.8
+##     Null deviance: 1403.4  on 1030  degrees of freedom
+## Residual deviance: 1240.4  on 1022  degrees of freedom
+## AIC: 1258.4
 ## 
 ## Number of Fisher Scoring iterations: 4
 ```
@@ -674,36 +671,36 @@ summary(class2.model)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -1.9260  -0.7642  -0.4925  -0.1910   2.8726  
+## -1.8848  -0.7462  -0.4996  -0.1986   2.5941  
 ## 
 ## Coefficients:
-##              Estimate Std. Error z value Pr(>|z|)    
-## (Intercept) -1.759527   0.908745  -1.936 0.052841 .  
-## w.age        0.002061   0.013276   0.155 0.876616    
-## w.ed2        0.959577   0.571428   1.679 0.093101 .  
-## w.ed3        1.881459   0.567104   3.318 0.000908 ***
-## w.ed4        2.357554   0.581876   4.052 5.09e-05 ***
-## h.ed2       -1.668445   0.608768  -2.741 0.006131 ** 
-## h.ed3       -1.831823   0.570488  -3.211 0.001323 ** 
-## h.ed4       -1.656869   0.567544  -2.919 0.003507 ** 
-## child        0.163673   0.045197   3.621 0.000293 ***
-## rel1        -0.543059   0.205794  -2.639 0.008319 ** 
-## w.occ1      -0.084875   0.184255  -0.461 0.645056    
-## h.occ2      -0.440212   0.217024  -2.028 0.042519 *  
-## h.occ3      -0.500493   0.212122  -2.359 0.018302 *  
-## h.occ4       0.188339   0.650148   0.290 0.772056    
-## ind2         0.132124   0.489474   0.270 0.787214    
-## ind3         0.674337   0.453012   1.489 0.136603    
-## ind4         0.653652   0.455400   1.435 0.151191    
-## med1        -0.683689   0.539107  -1.268 0.204731    
+##             Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -1.97353    0.93059  -2.121 0.033945 *  
+## w.age       -0.00446    0.01303  -0.342 0.732048    
+## w.ed2        1.16447    0.54360   2.142 0.032181 *  
+## w.ed3        1.79858    0.55035   3.268 0.001083 ** 
+## w.ed4        2.25640    0.56683   3.981 6.87e-05 ***
+## h.ed2       -1.44281    0.62124  -2.322 0.020207 *  
+## h.ed3       -1.11978    0.58190  -1.924 0.054311 .  
+## h.ed4       -1.18543    0.58998  -2.009 0.044507 *  
+## child        0.15791    0.04496   3.513 0.000444 ***
+## rel1        -0.50878    0.21326  -2.386 0.017042 *  
+## w.occ1      -0.14898    0.18213  -0.818 0.413365    
+## h.occ2      -0.70680    0.21855  -3.234 0.001220 ** 
+## h.occ3      -0.86009    0.21832  -3.940 8.16e-05 ***
+## h.occ4       0.10379    0.59088   0.176 0.860563    
+## ind2         0.37600    0.51220   0.734 0.462892    
+## ind3         0.85581    0.47859   1.788 0.073746 .  
+## ind4         0.83864    0.48219   1.739 0.081996 .  
+## med1         0.13545    0.42326   0.320 0.748954    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 1111.67  on 1030  degrees of freedom
-## Residual deviance:  963.73  on 1013  degrees of freedom
-## AIC: 999.73
+##     Null deviance: 1109.25  on 1030  degrees of freedom
+## Residual deviance:  965.16  on 1013  degrees of freedom
+## AIC: 1001.2
 ## 
 ## Number of Fisher Scoring iterations: 5
 ```
@@ -717,36 +714,32 @@ summary(class2.model2)
 ```
 ## 
 ## Call:
-## glm(formula = outcome ~ w.ed + h.ed + child + rel + h.occ + med, 
-##     family = binomial("logit"), data = class2.train)
+## glm(formula = outcome ~ w.ed + child + rel + h.occ, family = binomial("logit"), 
+##     data = class2.train)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -1.9530  -0.7577  -0.4930  -0.1970   2.8152  
+## -1.8854  -0.7300  -0.5190  -0.2478   2.6786  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept) -1.31193    0.69701  -1.882 0.059807 .  
-## w.ed2        0.97526    0.56837   1.716 0.086180 .  
-## w.ed3        1.90458    0.56305   3.383 0.000718 ***
-## w.ed4        2.43438    0.57818   4.210 2.55e-05 ***
-## h.ed2       -1.62389    0.59872  -2.712 0.006682 ** 
-## h.ed3       -1.75068    0.55965  -3.128 0.001759 ** 
-## h.ed4       -1.51551    0.55271  -2.742 0.006107 ** 
-## child        0.17044    0.03526   4.833 1.34e-06 ***
-## rel1        -0.58759    0.19868  -2.957 0.003102 ** 
-## h.occ2      -0.46126    0.21488  -2.147 0.031826 *  
-## h.occ3      -0.56442    0.20566  -2.744 0.006061 ** 
-## h.occ4       0.17960    0.64017   0.281 0.779058    
-## med1        -0.87850    0.52557  -1.672 0.094620 .  
+## (Intercept) -2.43396    0.54226  -4.489 7.17e-06 ***
+## w.ed2        0.93625    0.48079   1.947 0.051498 .  
+## w.ed3        1.62277    0.46081   3.522 0.000429 ***
+## w.ed4        2.14189    0.46448   4.611 4.00e-06 ***
+## child        0.15111    0.03528   4.283 1.85e-05 ***
+## rel1        -0.53348    0.20699  -2.577 0.009958 ** 
+## h.occ2      -0.71326    0.21004  -3.396 0.000684 ***
+## h.occ3      -0.89428    0.20750  -4.310 1.63e-05 ***
+## h.occ4       0.20576    0.57658   0.357 0.721195    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 1111.67  on 1030  degrees of freedom
-## Residual deviance:  969.67  on 1018  degrees of freedom
-## AIC: 995.67
+##     Null deviance: 1109.25  on 1030  degrees of freedom
+## Residual deviance:  976.51  on 1022  degrees of freedom
+## AIC: 994.51
 ## 
 ## Number of Fisher Scoring iterations: 5
 ```
@@ -768,36 +761,36 @@ summary(class3.model)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -1.7099  -0.9642  -0.6680   1.1964   2.3921  
+## -1.6844  -0.9329  -0.6307   1.1490   2.1755  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept) -1.33293    1.17921  -1.130   0.2583    
-## w.age       -0.09586    0.01278  -7.502 6.28e-14 ***
-## w.ed2       -0.01641    0.31212  -0.053   0.9581    
-## w.ed3        0.03063    0.32092   0.095   0.9239    
-## w.ed4        0.28409    0.34011   0.835   0.4036    
-## h.ed2        2.55504    1.04827   2.437   0.0148 *  
-## h.ed3        2.58286    1.04294   2.477   0.0133 *  
-## h.ed4        2.33200    1.04553   2.230   0.0257 *  
-## child        0.25506    0.04073   6.262 3.80e-10 ***
-## rel1        -0.10173    0.20323  -0.501   0.6167    
-## w.occ1       0.04988    0.16381   0.305   0.7607    
-## h.occ2       0.28437    0.20171   1.410   0.1586    
-## h.occ3       0.39325    0.19362   2.031   0.0422 *  
-## h.occ4       0.17494    0.54276   0.322   0.7472    
-## ind2         0.10480    0.29706   0.353   0.7242    
-## ind3         0.25049    0.28175   0.889   0.3740    
-## ind4         0.39323    0.28376   1.386   0.1658    
-## med1        -0.49659    0.34571  -1.436   0.1509    
+## (Intercept) -0.74804    0.86709  -0.863 0.388306    
+## w.age       -0.10094    0.01276  -7.911 2.54e-15 ***
+## w.ed2       -0.13589    0.29806  -0.456 0.648438    
+## w.ed3       -0.15453    0.31095  -0.497 0.619223    
+## w.ed4        0.19745    0.33068   0.597 0.550438    
+## h.ed2        1.47882    0.66212   2.233 0.025518 *  
+## h.ed3        1.41460    0.66266   2.135 0.032782 *  
+## h.ed4        1.46020    0.66836   2.185 0.028907 *  
+## child        0.24929    0.04102   6.077 1.22e-09 ***
+## rel1         0.12785    0.22006   0.581 0.561264    
+## w.occ1       0.13671    0.16450   0.831 0.405925    
+## h.occ2       0.55168    0.20616   2.676 0.007451 ** 
+## h.occ3       0.69320    0.20041   3.459 0.000542 ***
+## h.occ4       0.57147    0.52099   1.097 0.272696    
+## ind2         0.42483    0.30120   1.410 0.158405    
+## ind3         0.34804    0.28783   1.209 0.226589    
+## ind4         0.63508    0.29131   2.180 0.029249 *  
+## med1        -0.33496    0.30541  -1.097 0.272741    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 1340.1  on 1030  degrees of freedom
-## Residual deviance: 1229.7  on 1013  degrees of freedom
-## AIC: 1265.7
+##     Null deviance: 1335.2  on 1030  degrees of freedom
+## Residual deviance: 1211.0  on 1013  degrees of freedom
+## AIC: 1247
 ## 
 ## Number of Fisher Scoring iterations: 5
 ```
@@ -811,32 +804,37 @@ summary(class3.model2)
 ```
 ## 
 ## Call:
-## glm(formula = outcome ~ w.age + h.ed + child + med, family = binomial("logit"), 
+## glm(formula = outcome ~ w.age + h.ed + child + h.occ + ind, family = binomial("logit"), 
 ##     data = class3.train)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -1.6344  -0.9635  -0.6865   1.1944   2.3790  
+## -1.7232  -0.9435  -0.6376   1.1710   2.1311  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept) -0.95133    1.06847  -0.890   0.3733    
-## w.age       -0.09087    0.01160  -7.836 4.65e-15 ***
-## h.ed2        2.56679    1.04530   2.456   0.0141 *  
-## h.ed3        2.62963    1.03737   2.535   0.0112 *  
-## h.ed4        2.48106    1.03307   2.402   0.0163 *  
-## child        0.24040    0.03856   6.235 4.53e-10 ***
-## med1        -0.63054    0.32846  -1.920   0.0549 .  
+## (Intercept) -0.60676    0.76290  -0.795   0.4264    
+## w.age       -0.10095    0.01209  -8.347  < 2e-16 ***
+## h.ed2        1.46020    0.65243   2.238   0.0252 *  
+## h.ed3        1.41408    0.64277   2.200   0.0278 *  
+## h.ed4        1.57499    0.64260   2.451   0.0142 *  
+## child        0.24494    0.03937   6.222  4.9e-10 ***
+## h.occ2       0.45927    0.19878   2.310   0.0209 *  
+## h.occ3       0.59376    0.19123   3.105   0.0019 ** 
+## h.occ4       0.38394    0.51154   0.751   0.4529    
+## ind2         0.45566    0.29855   1.526   0.1269    
+## ind3         0.42911    0.28127   1.526   0.1271    
+## ind4         0.72009    0.28279   2.546   0.0109 *  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 1340.1  on 1030  degrees of freedom
-## Residual deviance: 1238.6  on 1024  degrees of freedom
-## AIC: 1252.6
+##     Null deviance: 1335.2  on 1030  degrees of freedom
+## Residual deviance: 1216.7  on 1019  degrees of freedom
+## AIC: 1240.7
 ## 
-## Number of Fisher Scoring iterations: 5
+## Number of Fisher Scoring iterations: 4
 ```
 
 In these models, p-values show the significance level of the variables. The residual deviance and null deviance show the variability of the residuals and the model predictions respectively. We want them to be as small as possible. Coefficients explain the effect of that variable on the outcome.
@@ -860,32 +858,32 @@ confusionMatrix(classes, test.outcome)
 ## 
 ##           Reference
 ## Prediction   1   2   3
-##          1 128  26  56
-##          2  16  32  27
-##          3  56  38  63
+##          1 120  23  55
+##          2  14  28  26
+##          3  61  46  69
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.5045          
-##                  95% CI : (0.4569, 0.5521)
-##     No Information Rate : 0.4525          
-##     P-Value [Acc > NIR] : 0.01593         
+##                Accuracy : 0.491           
+##                  95% CI : (0.4434, 0.5386)
+##     No Information Rate : 0.4412          
+##     P-Value [Acc > NIR] : 0.01995         
 ##                                           
-##                   Kappa : 0.2146          
+##                   Kappa : 0.1964          
 ##                                           
-##  Mcnemar's Test P-Value : 0.23644         
+##  Mcnemar's Test P-Value : 0.04489         
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: 1 Class: 2 Class: 3
-## Sensitivity            0.6400   0.3333   0.4315
-## Specificity            0.6612   0.8757   0.6824
-## Pos Pred Value         0.6095   0.4267   0.4013
-## Neg Pred Value         0.6897   0.8256   0.7088
-## Prevalence             0.4525   0.2172   0.3303
-## Detection Rate         0.2896   0.0724   0.1425
-## Detection Prevalence   0.4751   0.1697   0.3552
-## Balanced Accuracy      0.6506   0.6045   0.5570
+## Sensitivity            0.6154  0.28866   0.4600
+## Specificity            0.6842  0.88406   0.6336
+## Pos Pred Value         0.6061  0.41176   0.3920
+## Neg Pred Value         0.6926  0.81551   0.6955
+## Prevalence             0.4412  0.21946   0.3394
+## Detection Rate         0.2715  0.06335   0.1561
+## Detection Prevalence   0.4480  0.15385   0.3982
+## Balanced Accuracy      0.6498  0.58636   0.5468
 ```
 
 This model obviously does not perform well. It can only predict the true class 50% of the time, which is better than chance level in this case because prediction true class out of 3 possible values has a chance value of 33% but still, 50% is not good. This process is also very difficult to do when working with more than 3 classes. With 4 classes, you need to generate 6 models. With 5 classes, you need to generate 10 models and with 10 classes you need to generate 45 models for classification. There are packages that do this for you but they are won't be covered in this tutorial.
@@ -898,7 +896,7 @@ with(class3.model2, pchisq(null.deviance - deviance, df.null - df.residual, lowe
 ```
 
 ```
-## [1] 1.1963e-19
+## [1] 3.586873e-20
 ```
 
 The p-value is <<0.05, so the model is appropriate for use.
@@ -952,7 +950,7 @@ auc(roccurve)
 ```
 
 ```
-## Area under the curve: 0.6816
+## Area under the curve: 0.6981
 ```
 
 We want that curve to be far away from straight line. Ideally we want the area under the curve as high as possible. We want to make almost 0% mistakes while identifying all the positives, which means we want to see AUC value near to 1.
